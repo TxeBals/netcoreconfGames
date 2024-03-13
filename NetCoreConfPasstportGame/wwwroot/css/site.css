@@ -1,0 +1,175 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+}
+
+header {
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(236,22,127,1) 100%, rgba(104,32,121,1) 100%);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+    header h1 {
+        margin: 0;
+    }
+
+main {
+    padding: 20px;
+}
+
+section#ranking {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 80%;
+}
+
+    section#ranking h2 {
+        color: #333;
+        font-size: 24px;
+    }
+
+#tweets-ranking-container {
+    margin-top: 20px;
+}
+
+.tweet-ranking {
+    list-style-type: none;
+    padding: 0;
+}
+
+    .tweet-ranking li {
+        border-bottom: 1px solid #eee;
+        padding: 10px 0;
+    }
+
+        .tweet-ranking li:last-child {
+            border-bottom: none;
+        }
+
+    .tweet-ranking p {
+        margin: 0;
+        color: #555;
+    }
+
+        .tweet-ranking p strong {
+            color: #000;
+        }
+
+.bottom-right-img {
+    position: fixed; /* Mantiene la imagen fija en la pantalla */
+    bottom: 0; /* Alinea la imagen al borde inferior de la ventana */
+    right: 0; /* Alinea la imagen al borde derecho de la ventana */
+    width: 20%; /* Ajusta esto según el tamaño deseado para tu imagen */
+    height: auto; /* Mantiene la proporción de la imagen */
+    border-top: 1px solid #eee;
+    padding: 10px 0;
+    z-index: -1;
+}
+
+/* styles.css */
+.fetch-button {
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(236,22,127,1) 100%, rgba(104,32,121,1) 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.loader {
+    border: 6px solid #f3f3f3; /* Light grey */
+    border-top: 6px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+    display: block;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.hide {
+    display: none;
+}
+
+
+.ranking-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.rank-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+    .rank-item h4 {
+        margin-top: 0;
+    }
+
+    .rank-item img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    .rank-item p {
+        margin: 10px 0;
+    }
+
+.partner-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .partner-table td, .partner-table th {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .partner-table th {
+        background-color: #f4f4f4;
+    }
+
+.partner-mentioned img {
+    display: block;
+    margin: auto;
+    width: 20px;
+    height: 20px;
+}
+
+#ranking-list-container {
+    margin-top: 10px;
+}
+
+.partner-table {
+    width: 100%; /* Asegura que la tabla use todo el ancho disponible */
+    table-layout: fixed; /* Hace que todas las columnas tengan el mismo ancho */
+}
+
+    .partner-table th, .partner-table td {
+        equal-width: auto; /* Esto no es una propiedad CSS válida. Usa width: porcentaje o elimínala. */
+    }

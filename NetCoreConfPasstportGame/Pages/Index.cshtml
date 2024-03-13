@@ -1,0 +1,100 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Game";
+}
+
+<header>
+    <h1>Passport Partners Game of #netcoreconf</h1>
+</header>
+<main>
+    <section id="ranking">
+        <h2>Top Tweets</h2>
+        <div id="tweets-ranking-container">
+            <div id="loader" class="loader hide"></div>
+            <button id="fetchButton" class="fetch-button">Obtener</button>
+            <div id="ranking-list-container"></div>
+        </div>
+    </section>
+    <img src="https://tse3.mm.bing.net/th/id/OIP.ydOPOr0Gz-Wc2iHediXaZQHaHa?rs=1&pid=ImgDetMain" alt="Descripción de la imagen" class="bottom-right-img">
+
+</main>
+<script>
+    var PartnersList = [];
+
+    function GetPartnersList() {
+        $.ajax({
+            url: '/api/ranking/partners',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) { PartnersList = data; },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
+    $(function () 
+    {
+        GetPartnersList();
+
+        $("#fetchButton").click(function () {
+            $.ajax({
+                url: '/api/ranking',
+                type: 'GET', 
+                dataType: 'json', 
+                beforeSend: function () {                    
+                    console.log("Cargando...");
+                    $('#loader').removeClass("hide");
+                },
+                success: function (data) {
+                    console.log(data);
+                    var htmlContent = '<div class="ranking-list">';
+                    data.forEach(function (rank) {
+                        htmlContent += '<div class="rank-item">';
+                        htmlContent += '<h4>' + rank.alias + '</h4>';
+                        // Si tienes una URL para la imagen, puedes incluirla aquí. Asumimos que es posible que algunos no tengan 'picture'.
+                        if (rank.picture) {
+                            htmlContent += '<img src="' + rank.picture + '" alt="Profile Picture">';
+                        }
+                        htmlContent += '<p>Retweets: ' + rank.retweets + ', Likes: ' + rank.likes + '</p>';
+                        htmlContent += '<table class="partner-table">';
+                        var header = "<tr>";
+                        var content = "<tr>";
+                        console.log(rank.partners);
+                        for (var partner in PartnersList) {                            
+                            header += "<th>" + PartnersList[partner] + "</th>";
+                            var partnerValue = rank.partners[PartnersList[partner]]
+                            content += "<td>" + (partnerValue && partnerValue !== "" ? '<img src="/assets/stamp.webp" alt="Mencionado">' : '<img src="/assets/fail.webp" alt="Fail">');
+                            console.log(partnerValue);
+                            if (partnerValue && partnerValue !== "") {
+                                content += '<a href="https://twitter.com/i/web/status/' + partnerValue + '" target="_blank">Comprobar</a>';
+                            }
+                            content += "<p></p>";
+                            content += "</td>";
+                        }
+                       
+                        header += "</tr>";
+                        content += "</tr>";
+                        htmlContent += header + content;
+                        
+                        htmlContent += '</table></div>';
+                    });
+                    htmlContent += '</div>';                   
+                    $("#ranking-list-container").html(htmlContent);
+                },
+                error: function (xhr, status, error) {                    
+                    console.error(error);
+                    $("#ranking-list-container").html("<p>Ha ocurrido un <b>error</b> al obtener la lista de ganadores</p>");
+                },
+                complete: function () {                    
+                    console.log("Finalizado.");
+                    $('#loader').addClass("hide");
+                }
+            });
+
+        });
+
+        
+    });
+</script>
